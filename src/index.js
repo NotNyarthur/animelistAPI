@@ -15,6 +15,7 @@ const swagger_1 = require("./swagger");
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
+const host = process.env.HOST_URL;
 const port = process.env.PORT;
 (0, swagger_1.setupSwagger)(app);
 app.use("/api/animes", animes_router_1.animeRouter);
@@ -23,5 +24,5 @@ app.use("/api/genres", genres_router_1.genresRouter);
 app.use("/api/users", auth_middleware_1.authMiddleware, users_router_1.usersRouter);
 app.use("/api/auth", auth_router_1.authRouter);
 app.listen(port, () => {
-    console.log(`Server is running at: http://localhost:${port}`);
+    console.log(`Server is running at: ${host}:${port}`);
 });

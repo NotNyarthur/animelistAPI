@@ -2,6 +2,7 @@ import swaggerJsDoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
 import { Application } from "express";
 
+const host = process.env.HOST_URL
 const port = process.env.PORT
 const swaggerOptions = {
   swaggerDefinition: {
@@ -16,7 +17,7 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: `http://localhost:${port}`,
+        url: `${host}}:${port}`,
       },
     ],
     components: {

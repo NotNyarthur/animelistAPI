@@ -12,7 +12,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-
+const host = process.env.HOST_URL;
 const port = process.env.PORT;
 
 setupSwagger(app);
@@ -24,5 +24,5 @@ app.use("/api/users", authMiddleware, usersRouter);
 app.use("/api/auth", authRouter);
 
 app.listen(port, () => {
-  console.log(`Server is running at: http://localhost:${port}`);
+  console.log(`Server is running at: ${host}:${port}`);
 });

@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.setupSwagger = void 0;
 const swagger_jsdoc_1 = __importDefault(require("swagger-jsdoc"));
 const swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
+const host = process.env.HOST_URL;
 const port = process.env.PORT;
 const swaggerOptions = {
     swaggerDefinition: {
@@ -20,7 +21,7 @@ const swaggerOptions = {
         },
         servers: [
             {
-                url: `http://localhost:${port}`,
+                url: `${host}}:${port}`,
             },
         ],
         components: {
