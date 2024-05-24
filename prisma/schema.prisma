@@ -1,0 +1,76 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Formats {
+  TV
+  ONA
+  OVA
+  Movie
+  Special
+}
+
+model User {
+  id       Int    @id @default(autoincrement())
+  username     String
+  email    String
+  password String
+}
+
+model Anime {
+  id           Int           @id @default(autoincrement())
+  name         String
+  season       String
+  format       Formats
+  start_date   String // Parece que DateTime @db.Date está funcionando mal, así que paso ambos como strings aquí.
+  end_date     String
+  episodios    Int
+  ep_duration  Int
+  studios      AnimeStudio[]
+  genres       AnimeGenre[]
+  englishname  String
+  japanesename String
+  picture      String
+  synopsis     String
+}
+
+model Studio {
+  id    Int           @id @default(autoincrement())
+  name  String
+  anime AnimeStudio[]
+}
+
+model AnimeStudio {
+  anime    Anime  @relation(fields: [animeId], references: [id])
+  animeId  Int
+  studio   Studio @relation(fields: [studioId], references: [id])
+  studioId Int
+
+  @@id([animeId, studioId])
+}
+
+model Genre {
+  id    Int          @id @default(autoincrement())
+  name  String
+  anime AnimeGenre[]
+}
+
+model AnimeGenre {
+  anime   Anime @relation(fields: [animeId], references: [id])
+  animeId Int
+  genre   Genre @relation(fields: [genreId], references: [id])
+  genreId Int
+
+  @@id([animeId, genreId])
+}
