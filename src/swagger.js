@@ -7,7 +7,7 @@ exports.setupSwagger = void 0;
 const swagger_jsdoc_1 = __importDefault(require("swagger-jsdoc"));
 const swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
 const host = process.env.HOST_URL;
-const port = process.env.PORT;
+// const port = process.env.PORT
 const swaggerOptions = {
     swaggerDefinition: {
         openapi: "3.0.0",
@@ -21,7 +21,7 @@ const swaggerOptions = {
         },
         servers: [
             {
-                url: `${host}}:${port}`,
+                url: `${host}`,
             },
         ],
         components: {
