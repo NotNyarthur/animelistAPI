@@ -52,9 +52,9 @@ model Studio {
 }
 
 model AnimeStudio {
-  anime    Anime  @relation(fields: [animeId], references: [id])
+  anime    Anime  @relation(fields: [animeId], references: [id], onDelete: Cascade)
   animeId  Int
-  studio   Studio @relation(fields: [studioId], references: [id])
+  studio   Studio @relation(fields: [studioId], references: [id], onDelete: Cascade)
   studioId Int
 
   @@id([animeId, studioId])
@@ -67,9 +67,9 @@ model Genre {
 }
 
 model AnimeGenre {
-  anime   Anime @relation(fields: [animeId], references: [id])
+  anime   Anime @relation(fields: [animeId], references: [id], onDelete: Cascade)
   animeId Int
-  genre   Genre @relation(fields: [genreId], references: [id])
+  genre   Genre @relation(fields: [genreId], references: [id], onDelete: Cascade)
   genreId Int
 
   @@id([animeId, genreId])
