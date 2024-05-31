@@ -11,9 +11,15 @@ export const getAllAnime = async (_req: Request, res: Response) => {
       select: {
         id: true,
         name: true,
+        season: true,
+        start_date: true,
+        end_date: true,
         format: true,
         episodios: true,
+        ep_duration: true,
         englishname: true,
+        picture: true,
+        synopsis: true,
         japanesename: true,
         studios: {
           select: {
@@ -126,6 +132,40 @@ export const getAnimeById = async (_req: Request, res: Response) => {
     const anime = await prisma.anime.findUnique({
       where: {
         id: parseInt(animeId),
+      },
+      select: {
+        id: true,
+        name: true,
+        season: true,
+        start_date: true,
+        end_date: true,
+        format: true,
+        episodios: true,
+        ep_duration: true,
+        englishname: true,
+        picture: true,
+        synopsis: true,
+        japanesename: true,
+        studios: {
+          select: {
+            studio: {
+              select: {
+                id: true,
+                name: true,
+              },
+            },
+          },
+        },
+        genres: {
+          select: {
+            genre: {
+              select: {
+                id: true,
+                name: true,
+              },
+            },
+          },
+        },
       },
     });
 
@@ -258,9 +298,9 @@ export const uploadPicture = async (_req: Request, res: Response) => {
       });
     };
 
-    const result: any = await uploadStream(file.buffer)
+    const result: any = await uploadStream(file.buffer);
     return res.status(201).json({
-      picture: result.secure_url
+      picture: result.secure_url,
     });
   } catch (error) {
     if (error instanceof Error) {

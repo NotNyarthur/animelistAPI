@@ -35,9 +35,15 @@ const getAllAnime = (_req, res) => __awaiter(void 0, void 0, void 0, function* (
             select: {
                 id: true,
                 name: true,
+                season: true,
+                start_date: true,
+                end_date: true,
                 format: true,
                 episodios: true,
+                ep_duration: true,
                 englishname: true,
+                picture: true,
+                synopsis: true,
                 japanesename: true,
                 studios: {
                     select: {
@@ -136,6 +142,40 @@ const getAnimeById = (_req, res) => __awaiter(void 0, void 0, void 0, function* 
         const anime = yield prisma_1.prisma.anime.findUnique({
             where: {
                 id: parseInt(animeId),
+            },
+            select: {
+                id: true,
+                name: true,
+                season: true,
+                start_date: true,
+                end_date: true,
+                format: true,
+                episodios: true,
+                ep_duration: true,
+                englishname: true,
+                picture: true,
+                synopsis: true,
+                japanesename: true,
+                studios: {
+                    select: {
+                        studio: {
+                            select: {
+                                id: true,
+                                name: true,
+                            },
+                        },
+                    },
+                },
+                genres: {
+                    select: {
+                        genre: {
+                            select: {
+                                id: true,
+                                name: true,
+                            },
+                        },
+                    },
+                },
             },
         });
         if (!anime) {
@@ -252,7 +292,7 @@ const uploadPicture = (_req, res) => __awaiter(void 0, void 0, void 0, function*
         };
         const result = yield uploadStream(file.buffer);
         return res.status(201).json({
-            picture: result.secure_url
+            picture: result.secure_url,
         });
     }
     catch (error) {
